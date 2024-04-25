@@ -1,0 +1,84 @@
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 20px;
+    font-size: 120px;
+    font-family: 'inter';
+}
+
+.bc{
+    background: linear-gradient(60deg,#00ffff,#FF02FF);
+    width: 100%;
+    height: 100vh;
+}
+.text1{
+    
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.8px);
+    -webkit-backdrop-filter: blur(9.8px);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+
+}
+
+
+#submitButton {
+    margin-top: 0px;
+    width: 60px;
+    height: 40px;
+}
+
+#myCheckbox {
+    margin-left: 30px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    
+}
+
+
+#submitForm {
+    margin-top: 40px;
+    width: 400px;
+    height: 60px;
+}
+
+#taskInTable {
+    max-width: 300px;
+}
+
+#delete {
+    
+    left: 50px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-image: url("/assets/169779.png");
+    background-size: cover; /* ปรับขนาดภาพให้เต็มใน Checkbox */
+    background-position: center;
+}
+
+
+#edit {
+    
+    width: 60px;
+
+}
+
+#save {
+    width: 60px;
+}
+
+.edit {
+    border: solid 2px orange;
+}
+
+.not-edit {
+    border: none;
+}
+
+.crossed {
+    text-decoration: line-through;
+    color: rgb(194, 9, 9,0.3)
+}
