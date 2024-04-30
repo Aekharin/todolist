@@ -1,27 +1,67 @@
+<!-- {{todo_list | json}} -->
+
+
 <div class="bc">
-<div class="container">
-    <h1>To-Do List</h1>
-    <div style="display: flex; justify-content: center;">
-        <form id="submitForm" (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div style="display: flex; justify-content: center;">
+            <!-- <form id="submitForm" (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm"> -->
             <div class="form-group" style="display: flex;">
-                <input type="text" class="form-control" id="task" placeholder="Enter list" ngModel name="task" required>
-                <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">ADD</button>
+                <input type="text" class="form-control" id="task" placeholder="Enter list" ngModel name="task" required
+                    [(ngModel)]="todo_name" />
+                {{todo_name | json}}
+                {{is_check | json}}
+
+                <input type="checkbox" [(ngModel)]="is_check" />
+
+                <button (click)="onCreate()">ADD</button>
+                <!-- {{is_check | json}} -->
+                <!-- <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">ADD</button> -->
             </div>
-            <small *ngIf="taskForm.invalid && taskForm.dirty" id="errorMessage" class="form-text text-danger">Required field</small>
-        </form>
-    </div>
-    <br>
-    <table class="table" >
-        <thead>
+            <!-- <input type="checkbox" placeholder="Search" required [(ngModel)]="Search"> -->
+
+
+
+
+
+            <!-- <input type="radio" id="html" [(ngModel)]="Search" name="fav_language" [value]=null>
+            <label for="html">null</label><br>
+            
+            <input type="radio" id="html" [(ngModel)]="Search" name="fav_language" [value]=false>
+            <label for="html">false</label><br>
+
+            <input type="radio" id="html" [(ngModel)]="Search" name="fav_language" [value]=true>
+            <label for="html">true</label><br> -->
+            <!-- <button (click)="OnSearch()">Cls</button> -->
+
+
+
+            <!-- Drop down  -->
+            <select [(ngModel)]="is_check">
+                <option [value]="null">NULL</option>
+                <option [value]="true">True</option>
+                <option [value]="false">False</option>
+            </select>
+
+
+
+
+            <button (click)="onSearch()">Search</button>
+            <!-- <small *ngIf="taskForm.invalid && taskForm.dirty" id="errorMessage" class="form-text text-danger">Required field</small> -->
+            <!-- </form> -->
+        </div>
+        <br>
+        <table class="table">
+            <thead>
                 <th scope="col">&nbsp;&nbsp;&nbsp;Status</th>
                 <th scope="col">&nbsp;&nbsp;&nbsp;List Name</th>
-                <th scope="col">&nbsp;&nbsp;&nbsp;Delete</th>
-                <th scope="col">&nbsp;&nbsp;&nbsp;Edit</th>
-                <th scope="col">&nbsp;&nbsp;&nbsp;Save</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let t of taskArray; index as i">
-                <td><input (change)="onCheck(i)" id="myCheckbox" type="checkbox"[checked]="t.isCompleted"></td>
+                <th scope="col">&nbsp;&nbsp;&nbsp;ID</th>
+                <!-- <th scope="col">&nbsp;&nbsp;&nbsp;Delete</th> -->
+                <!-- <th scope="col">&nbsp;&nbsp;&nbsp;Save</th> -->
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of todo_list; index as i">
+                    <!-- <td><input (change)="onCheck(i)" id="myCheckbox" type="checkbox"[checked]="t.isCompleted"></td>
                 <td>
 
                     <input [ngClass]="{'edit': t.isEditable, 'not-edit': !t.isEditable, 'crossed': t.isCompleted}"
@@ -32,10 +72,36 @@
                 <td><button id="edit" class="btn btn-primary btn-sm" (click)="onEdit(i)"
                         [disabled]="t.isEditable">Edit</button></td>
                 <td><button id="save" class="btn btn-warning btn-sm" (click)="onSave(i, taskinput.value)"
-                        [disabled]="!t.isEditable">Save</button></td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+                        [disabled]="!t.isEditable">Save</button></td> -->
+                    <!-- {{editID | json}}
+                    {{t.id | json}} -->
+                    <td>
+                        <input type="checkbox" id="is_check" name="is_check" [(ngModel)]="t.is_check"
+                            (ngModelChange)="onEdit(t.id,t.todo_name,t.is_check)">
+                        {{t.is_check ? "Done" : "Not Done"}}
+                    </td>
+                    <!-- กล่องcheck box  -->
+                    <td>
+                        <span *ngIf="editID !== t.id">{{t.todo_name}} </span>
+                        <input type="text" *ngIf="editID === t.id" [(ngModel)]="t.todo_name">
+                    </td><!-- ใส่ข้อความตอนกดคำว่า edit  -->
+                    <td>{{i +1}}</td>
+                    <td>            
+                        <button *ngIf="editID !== t.id" (click)="editID = t.id; todo_namebefore = t.todo_name; onEdit(t.id,t.todo_name,t.is_check)">
+                            EDIT
+                            <!-- เช็ตค่าแต่ลอัน -->
+                        </button>
+                        <button *ngIf="editID === t.id" (click)="editID = null;onEdit(t.id,t.todo_name,t.is_check);todo_namebefore">
+                            SAVE
+                        </button>
+                        <button *ngIf="editID === t.id"
+                            (click)="editID = null; t.todo_name = todo_namebefore  ; todo_namebefore = '' ">
+                            CANCEL
+                        </button>
+                        <button *ngIf="editID !== t.id" (click)="onDelete(t.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
